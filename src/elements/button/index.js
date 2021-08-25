@@ -2,16 +2,31 @@ import React from "react";
 import { Link } from "react-dom";
 import propTypes from 'prop-types';
 export default function button(props) {
-    const className = [props.className]
-    if(props.isPrimary) className.push("btn-rpimary")
-    if(props.isLarge) className.push("btn-lg")
-    if(props.isSmall) className.push("btn-sm")
-    if(props.isBlock) className.push("btn-block")
-    if(props.hasShadow) className.push("btn-shadow")
+    const className = [props.className];
+    if(props.isPrimary) className.push("btn-rpimary");
+    if(props.isLarge) className.push("btn-lg");
+    if(props.isSmall) className.push("btn-sm");
+    if(props.isBlock) className.push("btn-block");
+    if(props.hasShadow) className.push("btn-shadow");
 
-    // eslint-disable-next-line no-unused-vars
+    
     const onClick =() => {
         if (props.onClick) props.onClick()
+    };
+    if(props.isDisabled||props.isLoading){
+        if (props.isDisabled) className.push("disable");
+        return (
+            <span className={className.join(" ")} style={props.style}>
+                {props.isLoading ? ( 
+                <>
+                <span className="spinner-border spinner-border-sm mx-5"></span>
+                <span className="sr-only">Loading ..... </span>
+                </>
+        ):(
+            props.children
+            )   }
+            </span>
+        )
     }
     if (props.type === "link"){
         if(props.isExternal){
